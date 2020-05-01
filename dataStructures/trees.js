@@ -93,26 +93,33 @@ class BinarySearchTree {
                 let replacementFound;
                 if (currentNode.right) {
                     childNode = currentNode.right;
-                    holderNode = childNode.left;
-                    holderParent = childNode;
-                    while(!replacementFound) {
-                        if(!holderNode.left) {
-                            replacementFound = true;
-                            holderParent.left = holderNode.right;
-                            replacementNode = holderNode;
-                            replacementNode.right = childNode;
-                            replacementNode.left = currentNode.left;
-
-                            parentNode[direction] = replacementNode;
-                        } else {
-                            holderParent = holderNode;
-                            holderNode = holderNode.left;
+                    if(childNode.left) {
+                        holderNode = childNode.left;
+                        holderParent = childNode;
+                        while(!replacementFound) {
+                            if(!holderNode.left) {
+                                replacementFound = true;
+                                holderParent.left = holderNode.right;
+                                replacementNode = holderNode;
+                                replacementNode.right = childNode;
+                                replacementNode.left = currentNode.left;
+    
+                                parentNode[direction] = replacementNode;
+                            } else {
+                                holderParent = holderNode;
+                                holderNode = holderNode.left;
+                            }
                         }
+                        return;
+                    } else {
+                        replacementNode = childNode;
+                        parentNode[direction] = replacementNode;
+                        return;
                     }
-                    return;
                 } else {
                     replacementNode = currentNode.left;
                     parentNode[direction] = replacementNode;
+                    return;
                 }
             } else if (value < currentNode.value) {
                 if (currentNode.left) {
@@ -145,16 +152,17 @@ tree.insert(4);
 tree.insert(6);
 tree.insert(20);
 tree.insert(170);
-tree.insert(50);
+tree.insert(190);
+tree.insert(180);
+tree.insert(199);
+tree.insert(175);
+// tree.insert(50);
 tree.insert(15);
 tree.insert(1);
-tree.insert(30);
-tree.insert(33);
+// tree.insert(30);
+// tree.insert(33);
 tree.remove(20);
-tree.remove(50);
-tree.remove(3);
 console.log(JSON.stringify(traverse(tree.root)));
-console.log(tree.lookup(55));
 
 function traverse(node) {
     const tree = { value: node.value };
