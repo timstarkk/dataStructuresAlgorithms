@@ -1,7 +1,8 @@
-const myArray = [];
+const numbers = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
 
-insertionSort = () => {
+function insertionSort(array) {
+  
+}
 
-};
-
-console.log(insertionSort(myArray));
+insertionSort(numbers);
+console.log(numbers);
