@@ -1,14 +1,12 @@
 const numbers = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
 
 function mergeSort (array) {
-  console.log(array);
-  if (array.length === 1) {
-    return array
+  if (array.length < 2) {
+    return array;
   }
   
   // Split Array in into right and left
-  const length = array.length;
-  const middle = Math.floor(length / 2);
+  const middle = Math.floor(array.length / 2);
   const left = array.slice(0, middle);
   const right = array.slice(middle);
 
@@ -19,36 +17,35 @@ function mergeSort (array) {
 }
 
 function merge(L, R){
-  let nR = R.length;
-  let nL = L.length;
-  let i = 0;
-  let j = 0;
-  let k = 0;
-  let A = [];
+  const sortedArray = [];
+  let sortedIndex = 0;
+  let leftIndex = 0;
+  let rightIndex = 0;
 
-  while (i < nL && j < nR) {
-    if( L[i] <= R[j]) {
-      A[k] = L[i];
-      i++;
+  while (leftIndex < L.length && rightIndex < R.length) {
+    if(L[leftIndex] <= R[rightIndex]) {
+      sortedArray[sortedIndex] = L[leftIndex];
+      leftIndex++;
     } else {
-      A[k] = R[j];
-      j++;
+      sortedArray[sortedIndex] = R[rightIndex];
+      rightIndex++;
     }
-    k++;
+    sortedIndex++;
   }
 
-  // when one side is finished, add all elements from remaining side
-  // (only one of these while loops will execute)
-  while (i < nL) {
-    A[k] = L[i]; 
-    i++;
-    k++;
+  // Copy rest of whichever array remains
+  while (leftIndex < L.length) {
+    sortedArray[sortedIndex] = L[leftIndex]; 
+    leftIndex++;
+    sortedIndex++;
   }
-  while (j < nR) {
-    A[k] = R[j];
-    j++;
-    k++;
+  while (rightIndex < R.length) {
+    sortedArray[sortedIndex] = R[rightIndex];
+    rightIndex++;
+    sortedIndex++;
   }
+
+  return sortedArray;
 }
 
 
