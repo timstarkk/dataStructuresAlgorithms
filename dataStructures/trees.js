@@ -142,6 +142,7 @@ class BinarySearchTree {
             };
         }
     }
+
     breadthFirstSearch() {
         let currentNode =  this.root;
         let list = [];
@@ -162,7 +163,67 @@ class BinarySearchTree {
         }
         return list;
     }
+
+    BFSrecursive(queue, list) {
+        if (!queue.length) {
+            return list;
+        }
+        let currentNode = queue.shift();
+        list.push(currentNode.value);
+        if(currentNode.left){
+            queue.push(currentNode.left);
+        }
+        if(currentNode.right){
+            queue.push(currentNode.right);
+        }
+        return this.BFSrecursive(queue, list);
+    }
+
+    DFSInorder() {
+        return traverseInOrder(this.root, [])
+    }
+    
+    DFSPostorder() {
+        return traversePostOrder(this.root, [])
+    }
+
+    DFSPreorder() {
+        return traversePreOrder(this.root, [])
+    }
 };
+
+function traverseInOrder(node, list) {
+    if (node.left) {
+        traverseInOrder(node.left, list);
+    }
+    list.push(node.value);
+    if (node.right) {
+        traverseInOrder(node.right, list);
+    }
+    return list;
+}
+
+function traversePreOrder(node, list) {
+    list.push(node.value);
+    if (node.left) {
+        traversePreOrder(node.left, list);
+    }
+    if (node.right) {
+        traversePreOrder(node.right, list);
+    }
+    return list;
+}
+
+function traversePostOrder(node, list) {
+    if (node.left) {
+        traversePostOrder(node.left, list);
+    }
+    if (node.right) {
+        traversePostOrder(node.right, list);
+    }
+    list.push(node.value);
+    return list;
+}
 
 const tree = new BinarySearchTree();
 
@@ -177,7 +238,12 @@ tree.insert(15);
 console.log(JSON.stringify(traverse(tree.root)));
 
 console.log('00000000000');
-console.log(tree.breadthFirstSearch());
+// console.log(tree.breadthFirstSearch());
+// console.log(tree.BFSrecursive([tree.root], []))
+console.log(tree.DFSInorder());
+console.log(tree.DFSPreorder());
+console.log(tree.DFSPostorder());
+
 
 function traverse(node) {
     const tree = { value: node.value };
