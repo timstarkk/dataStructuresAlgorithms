@@ -32,7 +32,8 @@ function merge(L, R){
     }
     sortedIndex++;
   }
-
+  
+  console.log(L,R);
   // Copy rest of whichever array remains
   while (leftIndex < L.length) {
     sortedArray[sortedIndex] = L[leftIndex]; 
