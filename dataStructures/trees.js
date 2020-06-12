@@ -145,7 +145,9 @@ class BinarySearchTree {
     breadthFirstSearch() {
         let currentNode =  this.root;
         let list = [];
+        // Depending on the tree, the queue below might take up a lot of memory. \\
         let queue = [];
+
         queue.push(currentNode);
 
         while(queue.length > 0) {
